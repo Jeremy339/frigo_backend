@@ -3,8 +3,8 @@ POST http://localhost:3000/roles
 Content-Type: application/json
 
 {
-  "id": 2,
-  "nombre": "Usuario",
+  "id": 3,
+  "nombre": "Mantenimiento",
   "descripcion": "Prueba"
 }
 

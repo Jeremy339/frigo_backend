@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Delete } from '@nestjs/common';
 import { TicketService } from './tickets.service';
 import { CreateTicketDto } from './dto/create-tickets.dto';
 
@@ -19,5 +19,11 @@ export class TicketController {
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.ticketService.findOne(id);
+  }
+
+  // Endpoint para eliminar un ticket
+  @Delete(':id')
+  async delete(@Param('id') id: number): Promise<{ message: string }> {
+    return this.ticketService.delete(id);  // Esto devolverá el mensaje de éxito
   }
 }

@@ -7,11 +7,14 @@ Content-Type: application/json
   "prioridad": "Alta",
   "estado": "Abierto",
   "fecha_creacion": "2024-12-01",
-  "usuario_id": 1755645149
+  "usuario_id": 1755645150
 }
 
 #### Test Obtener todos los tickets
 GET http://localhost:3000/tickets
 
 #### Test Obtener un ticket por su ID
-GET http://localhost:3000/tickets/1
+GET http://localhost:3000/tickets/11
+
+#### Delete
+DELETE http://localhost:3000/tickets/11

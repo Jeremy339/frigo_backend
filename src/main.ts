@@ -9,7 +9,12 @@ async function bootstrap() {
   app.enableCors();
 
   //Class Validator
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true,  // Transforma los datos de la solicitud según el tipo del DTO
+    whitelist: true,  // Elimina las propiedades que no están definidas en el DTO
+    forbidNonWhitelisted: true,  // Lanza una excepción si la solicitud tiene propiedades no definidas en el DTO
+  }));
+
   await app.listen(3000);
 }
 bootstrap();

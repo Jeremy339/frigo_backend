@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { Ticket } from './entities/tickets.entity';
 import { Usuario } from '../usuarios/entities/usuarios.entity';
 import { CreateTicketDto } from './dto/create-tickets.dto';
+import { HttpException } from '@nestjs/common';
+import { HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class TicketService {
@@ -15,22 +17,20 @@ export class TicketService {
   ) {}
 
   async create(createTicketDto: CreateTicketDto): Promise<Ticket> {
-    // Obtener el usuario por usuarioId
     const usuario = await this.usuarioRepository.findOne({
-      where: { usuario_id: createTicketDto.usuarioId }, // Asegúrate de que el campo en la base de datos sea usuario_id
+      where: { usuario_id: createTicketDto.usuario_id },
     });
 
     if (!usuario) {
-      throw new Error('Usuario no encontrado'); // Manejo de error si no existe el usuario
+      throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND);
     }
 
-    // Crear el ticket y asignar el usuario
     const ticket = this.ticketRepository.create({
       descripcion: createTicketDto.descripcion,
       prioridad: createTicketDto.prioridad,
-      estado: createTicketDto.estado || 'Abierto',  // Estado por defecto
+      estado: createTicketDto.estado || 'Abierto',
       fecha_creacion: createTicketDto.fecha_creacion || new Date(),
-      usuario,  // Asignar el usuario
+      usuario,
     });
 
     return this.ticketRepository.save(ticket);
@@ -41,9 +41,35 @@ export class TicketService {
   }
 
   async findOne(id: number): Promise<Ticket> {
-    return this.ticketRepository.findOne({
+    const ticket = await this.ticketRepository.findOne({
       where: { ticket_id: id },
       relations: ['usuario'],
     });
+
+    if (!ticket) {
+      throw new HttpException(
+        `Ticket con ID ${id} no encontrado`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return ticket;
+  }
+
+  // Modificación del método delete para devolver un mensaje de éxito
+  async delete(id: number): Promise<{ message: string }> {
+    const ticket = await this.ticketRepository.findOne({
+      where: { ticket_id: id },
+    });
+
+    if (!ticket) {
+      throw new HttpException(
+        `Ticket con ID ${id} no encontrado`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    await this.ticketRepository.delete(id);
+    return { message: `Ticket con ID ${id} eliminado exitosamente` }; // Mensaje de confirmación
   }
 }
