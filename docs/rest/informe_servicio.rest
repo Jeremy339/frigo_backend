@@ -1,0 +1,22 @@
+# Test Crear un informe servicio
+POST http://localhost:3000/informes-servicio
+Content-Type: application/json
+
+{
+  "informe_servicio_id": "4",
+  "fecha": "05/05/2002",
+  "hora_ingreso": "13:00",
+  "hora_salida": "13:00",
+  "descripcion_trabajo": "es una prueba",
+  "usuario": 1755645148,
+  "equipo": 6,
+  "asignacionMaterial": 2
+}
+
+
+#### Test Obtener todos los Materiales Asignados
+GET http://localhost:3000/informes-servicio
+
+
+#### Eliminar 
+DELETE http://localhost:3000/informes-servicio/11

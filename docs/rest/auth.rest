@@ -1,0 +1,18 @@
+## Login sin conexion a base de datos
+
+POST http://127.0.0.1:3000/auth/login
+Content-Type: application/json
+
+{
+    "name": "prueba2",
+    "email":"casa2@gmail.com",
+    "password": "654321"
+}
+
+####
+GET http://127.0.0.1:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MTU4NzM0ODksImV4cCI6MTcxNTg3NDA5NH0.mqZPC_8bEigkSW8535DlUdRBBdH_Tb9oVg8aoPnzwCU
+
+#####
+GET http://127.0.0.1:3000/categoria
+

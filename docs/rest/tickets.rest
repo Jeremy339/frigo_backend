@@ -1,0 +1,17 @@
+# Test Crear un ticket
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "descripcion": "Nuevo ticket de prueba",
+  "prioridad": "Alta",
+  "estado": "Abierto",
+  "fecha_creacion": "2024-12-01",
+  "usuario_id": 1755645149
+}
+
+#### Test Obtener todos los tickets
+GET http://localhost:3000/tickets
+
+#### Test Obtener un ticket por su ID
+GET http://localhost:3000/tickets/1

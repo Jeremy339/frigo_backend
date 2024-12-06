@@ -1,0 +1,13 @@
+# Test Crear un Material
+POST http://localhost:3000/materiales
+Content-Type: application/json
+
+{
+  "nombre_material": "Material C",
+  "disponible": true,
+  "descripcion": "usado para ejemplo"
+}
+
+
+#### Test Obtener todos los Materiales
+GET http://localhost:3000/materiales

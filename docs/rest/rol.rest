@@ -1,0 +1,13 @@
+# Test Crear un Rol
+POST http://localhost:3000/roles
+Content-Type: application/json
+
+{
+  "id": 2,
+  "nombre": "Usuario",
+  "descripcion": "Prueba"
+}
+
+
+#### Test Obtener todos los Roles
+GET http://localhost:3000/roles

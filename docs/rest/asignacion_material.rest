@@ -1,0 +1,12 @@
+# Test Crear una Asiganción
+POST http://localhost:3000/asignacion-material
+Content-Type: application/json
+
+{
+  "cantidad_usada": "600",
+  "material": 1
+}
+
+
+#### Test Obtener todos los Materiales Asignados
+GET http://localhost:3000/asignacion-material

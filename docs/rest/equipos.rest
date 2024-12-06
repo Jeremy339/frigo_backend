@@ -1,0 +1,25 @@
+# Test Crear un Equipo
+POST http://localhost:3000/equipos
+Content-Type: application/json
+
+{
+  "equipo_id": 1,
+  "area": "Ejemplo",
+  "descripcion": "ejemplo",
+  "marca": "ejemplo",
+  "modelo": "ejemplo",
+  "serie": "A",
+  "tipo": "ejemplo",
+  "capacidad": "ejemplo",
+  "refrigeracion": "ejemplo",
+  "psi": "ejemplo",
+  "volts": "ejemplo",
+  "amp": "ejemplo"
+}
+
+
+#### Test Obtener todos los Equipos
+GET http://localhost:3000/equipos
+
+### Delete los equipos
+DELETE http://localhost:3000/equipos/5

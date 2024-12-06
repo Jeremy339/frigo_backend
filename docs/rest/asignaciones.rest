@@ -1,0 +1,23 @@
+# Test Crear una Asinacion
+POST http://localhost:3000/asignaciones
+Content-Type: application/json
+
+{
+  "fecha_asignacion": "05/05/2025",
+  "estado": "Completado",
+  "informeServicio": 1
+}
+
+#####
+PUT  http://localhost:3000/asignaciones/1
+Content-Type: application/json
+
+{
+  "fecha_asignacion": "05/05/2025",
+  "estado": "Mentira, está completo",
+  "informeServicio": 1
+}
+
+
+#### Test Obtener todos Asignados
+GET http://localhost:3000/asignaciones

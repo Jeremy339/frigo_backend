@@ -1,0 +1,16 @@
+### Crear un usuario
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+  "usuario_id": 1755645148,
+  "nombre": "Jeremy Pacho",
+  "correo": "juan.perez@example.com",
+  "password": "12345",
+  "direccion": "OE20-A",
+  "telefono": "0964514852"
+}
+
+
+### Mostrar un usuario
+GET  http://localhost:3000/usuarios/1755645148
