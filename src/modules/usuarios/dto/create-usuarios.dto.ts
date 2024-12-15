@@ -5,6 +5,10 @@ export class CreateUsuariosDTO {
   @IsOptional() // Hacemos que el 'usuario_id' sea opcional
   readonly usuario_id?: number;  // Aquí le damos el nombre correcto al campo
   
+  @IsString()
+  @IsNotEmpty()
+  readonly nombre: string;
+
   @IsEmail()
   @IsNotEmpty()
   readonly correo: string;
