@@ -13,4 +13,4 @@ Content-Type: application/json
 
 
 ### Mostrar un usuario
-GET  http://localhost:3000/usuarios/1755645148
+GET  http://localhost:3000/usuarios
