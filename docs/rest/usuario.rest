@@ -3,10 +3,10 @@ POST http://localhost:3000/usuarios
 Content-Type: application/json
 
 {
-  "usuario_id": 1755648965,
+  "usuario_id": 1755648916,
   "nombre": "Jeremy Pacho",
-  "correo": "juan.perez@example.com",
-  "password": "12345",
+  "correo": "alex@gmail.com",
+  "password": "alexander",
   "direccion": "OE20-A",
   "telefono": "0964514852"
 }

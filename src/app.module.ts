@@ -12,11 +12,12 @@ import { EquiposModule } from './modules/equipos/equipos.module';
 import { InformeServicioModule } from './modules/informe-servicio/informe-servicio.module';
 import { EquiposController } from './modules/equipos/equipos.controller';
 import { AsignacionesModule } from './modules/asignaciones/asignaciones.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 
 
 @Module({
-  imports: [ DatabaseModule, ConfigModule, RolesModule, UsuariosModule, MaterialesModule, AsignacionMaterialModule, EquiposModule, InformeServicioModule, AsignacionesModule, TicketsModule],
+  imports: [ DatabaseModule, ConfigModule, RolesModule, UsuariosModule, MaterialesModule, AsignacionMaterialModule, EquiposModule, InformeServicioModule, AsignacionesModule, TicketsModule, AuthModule],
   controllers: [AppController, EquiposController],
   providers: [AppService],
 })

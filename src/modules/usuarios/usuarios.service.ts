@@ -1,10 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Usuario } from './entities/usuarios.entity';
 import { RolesService } from '../roles/roles.service';
-import { QueryFailedError } from 'typeorm';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuariosService {
@@ -26,38 +25,44 @@ export class UsuariosService {
     });
   }
 
+  async findByEmail(correo: string): Promise<Usuario> {
+    return await this.usuarioRepository.findOne({ where: { correo } });
+  }
+
   async create(usuario: Partial<Usuario>, rolId?: number): Promise<Usuario> {
-    // Verificamos si el usuario ya existe por usuario_id
-    const existingUser = await this.usuarioRepository.findOne({
-      where: { usuario_id: usuario.usuario_id },
-    });
-
+    // Verificar si el usuario ya existe por correo
+    const existingUser = await this.findByEmail(usuario.correo);
     if (existingUser) {
-      // Si el usuario existe, lanzamos una excepción con un mensaje adecuado
-      throw new HttpException('El usuario con ese ID ya existe', HttpStatus.CONFLICT);
+      throw new HttpException('El correo ya está registrado', HttpStatus.CONFLICT);
     }
-
+  
     try {
-      // Si no existe, continuamos con la creación
+      // Obtener rol (por defecto rol_id = 2)
       const rol = rolId
         ? await this.rolesService.findOne(rolId)
-        : await this.rolesService.findOne(2); // Rol por defecto
-
+        : await this.rolesService.findOne(2);
+  
       if (!rol) {
         throw new Error('Rol no encontrado');
       }
-
+  
+      // Hashear la contraseña
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(usuario.password, salt);
+  
+      // Crear nuevo usuario con la contraseña hasheada
       const nuevoUsuario = this.usuarioRepository.create({
         ...usuario,
-        rol: rol, // Asignamos el rol al usuario
+        password: hashedPassword, // Guardar el hash de la contraseña
+        rol: rol,
       });
-
+  
       return await this.usuarioRepository.save(nuevoUsuario);
     } catch (error) {
-      // Capturamos cualquier otro error
       throw error;
     }
   }
+  
 
   async update(id: number, usuario: Partial<Usuario>): Promise<Usuario> {
     await this.usuarioRepository.update(id, usuario);
